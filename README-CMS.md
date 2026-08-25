@@ -55,10 +55,15 @@ Then:
    indexes for files in `public/`, so bare `/admin/` returns 404 in dev. On the
    deployed site, and under `npm run preview`, plain `/admin/` works.)
 2. Click **"Work with Local Repository"**.
-3. In the folder picker, choose the **project root** (the folder containing
-   `package.json`), and allow read/write access when the browser asks.
-4. Open **Homepage → Homepage — English** (or Spanish) and edit.
-5. Click **Save**. The JSON file under `src/content/pages/home/` is written
+3. A **folder** picker opens. It only lets you select folders — files are never
+   selectable in it, so do not go looking for `package.json` or any other file.
+   Navigate to wherever you cloned the repo, select the
+   `gbp-agent-extraordinaire` folder **itself**, and click Open (macOS) or
+   Select Folder (Windows).
+4. Chrome then asks for permission. Choose **Edit files** / **Save changes** —
+   read-only access is not enough, the CMS has to write your edits back.
+5. Open **Homepage → Homepage — English** (or Spanish) and edit.
+6. Click **Save**. The JSON file under `src/content/pages/home/` is written
    directly. The Astro dev server hot-reloads, so the change appears at
    <http://localhost:4321/> immediately.
 
