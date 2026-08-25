@@ -4,3 +4,6 @@ dist/
 .vercel/
 .DS_Store
 *.log
+
+# Vendored CMS bundle — regenerate with `npm run cms:sync` (see README-CMS.md)
+public/admin/sveltia-cms.js

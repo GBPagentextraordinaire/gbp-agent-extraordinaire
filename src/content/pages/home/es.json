@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "UMC Innovation — Creación de negocios corporativos",
+    "description": "Ayudamos a empresas consolidadas a crear, probar y lanzar nuevos negocios: del concepto directivo al producto en el mercado en dos trimestres."
+  },
+  "hero": {
+    "eyebrow": "Práctica global de innovación",
+    "heading": "Convertimos la ambición corporativa en productos que llegan al mercado",
+    "body": "UMC Innovation colabora con empresas consolidadas para crear, probar y lanzar nuevos negocios, pasando del concepto directivo a un producto en el mercado en menos de dos trimestres.",
+    "primaryCta": { "label": "Reserva una llamada", "href": "/es/contacto" },
+    "secondaryCta": { "label": "Ver casos de éxito", "href": "/es/casos-de-exito" },
+    "background": "/src/assets/uploads/hero-innovation-lab.jpg",
+    "backgroundAlt": "Investigadores colaborando en el laboratorio de UMC Innovation",
+    "stats": [
+      { "value": "140+", "label": "Negocios lanzados" },
+      { "value": "38", "label": "Mercados atendidos" },
+      { "value": "2.400 M$", "label": "Ingresos influidos" },
+      { "value": "17", "label": "Años de experiencia" }
+    ]
+  },
+  "faq": {
+    "heading": "Preguntas frecuentes",
+    "items": [
+      {
+        "question": "¿Cuánto dura un proyecto habitual?",
+        "answer": "La mayoría de los proyectos duran **de 12 a 16 semanas**, desde el descubrimiento hasta un producto funcionando en el mercado.\n\nTrabajamos en bloques de dos semanas, así que puedes detener o ampliar el proyecto en cualquier punto de control."
+      },
+      {
+        "question": "¿Trabajáis con equipos internos?",
+        "answer": "Sí. Nos integramos con vuestro equipo en lugar de sustituirlo, y entregamos toda la documentación y la propiedad del código al final de cada proyecto."
+      },
+      {
+        "question": "¿Cuánto cuesta el sprint de descubrimiento?",
+        "answer": "El descubrimiento tiene un **precio cerrado**, acordado antes de empezar. No hay horas variables ni peticiones de cambio durante el sprint."
+      },
+      {
+        "question": "¿En qué sectores trabajáis?",
+        "answer": "Nos centramos en servicios financieros, sanidad, fabricación industrial y logística: sectores donde la regulación y los sistemas heredados dificultan el lanzamiento de nuevos negocios."
+      },
+      {
+        "question": "¿Ofrecéis soporte tras el lanzamiento?",
+        "answer": "Ofrecemos un contrato de crecimiento de 12 meses que cubre iteración de producto, analítica y formación del equipo. Es opcional y se presupuesta por separado."
+      }
+    ]
+  }
+}

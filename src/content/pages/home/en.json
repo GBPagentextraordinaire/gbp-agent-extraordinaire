@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "title": "UMC Innovation — Corporate venture building",
+    "description": "We help established businesses build, test and launch new ventures — from boardroom concept to product in market within two quarters."
+  },
+  "hero": {
+    "eyebrow": "Global innovation practice",
+    "heading": "We turn corporate ambition into products that actually ship",
+    "body": "UMC Innovation partners with established businesses to build, test and launch new ventures — moving from boardroom concept to a product in market inside two quarters.",
+    "primaryCta": { "label": "Book a discovery call", "href": "/contact" },
+    "secondaryCta": { "label": "See our case studies", "href": "/case-studies" },
+    "background": "/src/assets/uploads/hero-innovation-lab.jpg",
+    "backgroundAlt": "Researchers collaborating in the UMC Innovation lab",
+    "stats": [
+      { "value": "140+", "label": "Ventures launched" },
+      { "value": "38", "label": "Markets served" },
+      { "value": "$2.4B", "label": "Client revenue influenced" },
+      { "value": "17", "label": "Years in practice" }
+    ]
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "question": "How long does a typical engagement run?",
+        "answer": "Most engagements run **12 to 16 weeks**, from discovery through to a working product in market.\n\nWe scope in two-week increments so you can stop or extend at any checkpoint."
+      },
+      {
+        "question": "Do you work with in-house teams?",
+        "answer": "Yes. We embed alongside your people rather than replacing them, and we hand over full documentation and code ownership at the end of every engagement."
+      },
+      {
+        "question": "What does the discovery sprint cost?",
+        "answer": "Discovery is a **fixed fee**, agreed before we start. There are no variable hours and no change requests during the sprint."
+      },
+      {
+        "question": "Which sectors do you work in?",
+        "answer": "We focus on financial services, healthcare, industrial manufacturing and logistics — sectors where regulation and legacy systems make new ventures hard to launch."
+      },
+      {
+        "question": "Can you support us after launch?",
+        "answer": "We offer a 12-month growth retainer covering product iteration, analytics and team coaching. It is optional and priced separately."
+      }
+    ]
+  }
+}

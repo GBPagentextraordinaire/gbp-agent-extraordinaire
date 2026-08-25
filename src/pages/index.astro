@@ -1,44 +1,15 @@
 ---
-import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import heroBackground from '../assets/uploads/hero-innovation-lab.jpg';
+import Hero from '../components/Hero.astro';
+import Faq from '../components/Faq.astro';
+
+const page = await getEntry('pages', 'home/en');
+if (!page) throw new Error('Missing content file: src/content/pages/home/en.json');
+const { meta, hero, faq } = page.data;
 ---
 
-<BaseLayout
-  locale="en"
-  metaTitle="UMC Innovation — Corporate venture building"
-  metaDescription="We help established businesses build, test and launch new ventures — from boardroom concept to product in market within two quarters."
->
-  <section class="hero">
-    <div class="hero__media">
-      <Image src={heroBackground} alt="Researchers collaborating in the UMC Innovation lab" width={1600} height={900} format="webp" />
-    </div>
-    <div class="hero__inner">
-      <p class="hero__eyebrow">Global innovation practice</p>
-      <h1 class="hero__heading">We turn corporate ambition into products that actually ship</h1>
-      <p class="hero__body">UMC Innovation partners with established businesses to build, test and launch new ventures — moving from boardroom concept to a product in market inside two quarters.</p>
-      <div class="hero__actions">
-        <a class="hero__cta hero__cta--primary" href="/contact">Book a discovery call</a>
-        <a class="hero__cta hero__cta--secondary" href="/case-studies">See our case studies</a>
-      </div>
-      <dl class="hero__stats">
-        <div class="hero__stat"><dt class="hero__stat-value">140+</dt><dd class="hero__stat-label">Ventures launched</dd></div>
-        <div class="hero__stat"><dt class="hero__stat-value">38</dt><dd class="hero__stat-label">Markets served</dd></div>
-        <div class="hero__stat"><dt class="hero__stat-value">$2.4B</dt><dd class="hero__stat-label">Client revenue influenced</dd></div>
-        <div class="hero__stat"><dt class="hero__stat-value">17</dt><dd class="hero__stat-label">Years in practice</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="faq">
-    <h2 class="faq__heading">Frequently asked questions</h2>
-    <dl class="faq__list">
-      <div class="faq__item"><dt class="faq__question">How long does a typical engagement run?</dt><dd class="faq__answer"><p>Most engagements run <strong>12 to 16 weeks</strong>, from discovery through to a working product in market.</p>
-<p>We scope in two-week increments so you can stop or extend at any checkpoint.</p></dd></div>
-      <div class="faq__item"><dt class="faq__question">Do you work with in-house teams?</dt><dd class="faq__answer"><p>Yes. We embed alongside your people rather than replacing them, and we hand over full documentation and code ownership at the end of every engagement.</p></dd></div>
-      <div class="faq__item"><dt class="faq__question">What does the discovery sprint cost?</dt><dd class="faq__answer"><p>Discovery is a <strong>fixed fee</strong>, agreed before we start. There are no variable hours and no change requests during the sprint.</p></dd></div>
-      <div class="faq__item"><dt class="faq__question">Which sectors do you work in?</dt><dd class="faq__answer"><p>We focus on financial services, healthcare, industrial manufacturing and logistics — sectors where regulation and legacy systems make new ventures hard to launch.</p></dd></div>
-      <div class="faq__item"><dt class="faq__question">Can you support us after launch?</dt><dd class="faq__answer"><p>We offer a 12-month growth retainer covering product iteration, analytics and team coaching. It is optional and priced separately.</p></dd></div>
-    </dl>
-  </section>
+<BaseLayout locale="en" metaTitle={meta.title} metaDescription={meta.description}>
+  <Hero hero={hero} />
+  <Faq faq={faq} />
 </BaseLayout>

@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import { resolveUpload } from '../lib/images';
+
+interface Stat { value: string; label: string }
+interface Cta { label: string; href: string }
+interface Props {
+  hero: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    primaryCta: Cta;
+    secondaryCta: Cta;
+    background: string;
+    backgroundAlt: string;
+    stats: Stat[];
+  };
+}
+const { hero } = Astro.props;
+
+// Turns the CMS-stored source path into real ImageMetadata so <Image /> can
+// optimise it at build time. See src/lib/images.ts.
+const background = resolveUpload(hero.background);
+---
+<section class="hero">
+  <div class="hero__media">
+    <Image src={background} alt={hero.backgroundAlt} width={1600} height={900} format="webp" />
+  </div>
+  <div class="hero__inner">
+    <p class="hero__eyebrow">{hero.eyebrow}</p>
+    <h1 class="hero__heading">{hero.heading}</h1>
+    <p class="hero__body">{hero.body}</p>
+    <div class="hero__actions">
+      <a class="hero__cta hero__cta--primary" href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
+      <a class="hero__cta hero__cta--secondary" href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
+    </div>
+    <dl class="hero__stats">{hero.stats.map((stat) => (<Fragment> <div class="hero__stat"><dt class="hero__stat-value">{stat.value}</dt><dd class="hero__stat-label">{stat.label}</dd></div></Fragment>))} </dl>
+  </div>
+</section>

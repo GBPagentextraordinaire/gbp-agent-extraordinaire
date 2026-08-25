@@ -1,0 +1,24 @@
+---
+import { renderMarkdown } from '../lib/markdown';
+
+interface Props {
+  faq: {
+    heading: string;
+    items: { question: string; answer: string }[];
+  };
+}
+const { faq } = Astro.props;
+
+// FAQ answers are authored as markdown in the CMS, so they are rendered to
+// HTML here at build time.
+const items = await Promise.all(
+  faq.items.map(async (item) => ({
+    question: item.question,
+    answerHtml: await renderMarkdown(item.answer),
+  })),
+);
+---
+<section class="faq">
+  <h2 class="faq__heading">{faq.heading}</h2>
+  <dl class="faq__list">{items.map((item) => (<Fragment> <div class="faq__item"><dt class="faq__question">{item.question}</dt><dd class="faq__answer" set:html={item.answerHtml}></dd></div></Fragment>))} </dl>
+</section>

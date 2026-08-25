@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>UMC Innovation — Content editor</title>
+  </head>
+  <body>
+    <!--
+      Sveltia CMS is vendored rather than loaded from a CDN, so the editor works
+      with no network connection (see requirement: demonstrate offline) and so
+      the version is pinned in package-lock.json rather than floating.
+
+      Re-copy it after any dependency change with:  npm run cms:sync
+
+      This is a plain static page in public/. It is copied to dist/admin/ as-is
+      and is not processed by Astro, so the CMS is not coupled to the Astro
+      version in any way — upgrading Astro cannot break the editor, and vice
+      versa.
+    -->
+    <script src="/admin/sveltia-cms.js"></script>
+  </body>
+</html>
