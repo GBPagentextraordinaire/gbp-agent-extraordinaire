@@ -145,9 +145,9 @@ Available uploads:
 
 ## Verifying the rendered output did not change
 
-The hero and FAQ were first built with the copy hardcoded inline (commit tagged
-`baseline-hardcoded`), and that HTML was snapshotted into
-`verification/baseline/`. The content was then extracted into JSON and the site
+The hero and FAQ were first built with the copy hardcoded inline (commit
+`4c08abb`, the first commit on this branch), and that HTML was snapshotted
+into `verification/baseline/`. The content was then extracted into JSON and the site
 rebuilt.
 
 ```bash
