@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import heroBackground from '../../assets/uploads/hero-innovation-lab.jpg';
+---
+
+<BaseLayout
+  locale="es"
+  metaTitle="UMC Innovation — Creación de negocios corporativos"
+  metaDescription="Ayudamos a empresas consolidadas a crear, probar y lanzar nuevos negocios: del concepto directivo al producto en el mercado en dos trimestres."
+>
+  <section class="hero">
+    <div class="hero__media">
+      <Image src={heroBackground} alt="Investigadores colaborando en el laboratorio de UMC Innovation" width={1600} height={900} format="webp" />
+    </div>
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Práctica global de innovación</p>
+      <h1 class="hero__heading">Convertimos la ambición corporativa en productos que llegan al mercado</h1>
+      <p class="hero__body">UMC Innovation colabora con empresas consolidadas para crear, probar y lanzar nuevos negocios, pasando del concepto directivo a un producto en el mercado en menos de dos trimestres.</p>
+      <div class="hero__actions">
+        <a class="hero__cta hero__cta--primary" href="/es/contacto">Reserva una llamada</a>
+        <a class="hero__cta hero__cta--secondary" href="/es/casos-de-exito">Ver casos de éxito</a>
+      </div>
+      <dl class="hero__stats">
+        <div class="hero__stat"><dt class="hero__stat-value">140+</dt><dd class="hero__stat-label">Negocios lanzados</dd></div>
+        <div class="hero__stat"><dt class="hero__stat-value">38</dt><dd class="hero__stat-label">Mercados atendidos</dd></div>
+        <div class="hero__stat"><dt class="hero__stat-value">2.400 M$</dt><dd class="hero__stat-label">Ingresos influidos</dd></div>
+        <div class="hero__stat"><dt class="hero__stat-value">17</dt><dd class="hero__stat-label">Años de experiencia</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2 class="faq__heading">Preguntas frecuentes</h2>
+    <dl class="faq__list">
+      <div class="faq__item"><dt class="faq__question">¿Cuánto dura un proyecto habitual?</dt><dd class="faq__answer"><p>La mayoría de los proyectos duran <strong>de 12 a 16 semanas</strong>, desde el descubrimiento hasta un producto funcionando en el mercado.</p>
+<p>Trabajamos en bloques de dos semanas, así que puedes detener o ampliar el proyecto en cualquier punto de control.</p></dd></div>
+      <div class="faq__item"><dt class="faq__question">¿Trabajáis con equipos internos?</dt><dd class="faq__answer"><p>Sí. Nos integramos con vuestro equipo en lugar de sustituirlo, y entregamos toda la documentación y la propiedad del código al final de cada proyecto.</p></dd></div>
+      <div class="faq__item"><dt class="faq__question">¿Cuánto cuesta el sprint de descubrimiento?</dt><dd class="faq__answer"><p>El descubrimiento tiene un <strong>precio cerrado</strong>, acordado antes de empezar. No hay horas variables ni peticiones de cambio durante el sprint.</p></dd></div>
+      <div class="faq__item"><dt class="faq__question">¿En qué sectores trabajáis?</dt><dd class="faq__answer"><p>Nos centramos en servicios financieros, sanidad, fabricación industrial y logística: sectores donde la regulación y los sistemas heredados dificultan el lanzamiento de nuevos negocios.</p></dd></div>
+      <div class="faq__item"><dt class="faq__question">¿Ofrecéis soporte tras el lanzamiento?</dt><dd class="faq__answer"><p>Ofrecemos un contrato de crecimiento de 12 meses que cubre iteración de producto, analítica y formación del equipo. Es opcional y se presupuesta por separado.</p></dd></div>
+    </dl>
+  </section>
+</BaseLayout>
