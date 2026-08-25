@@ -50,7 +50,10 @@ npm run dev
 
 Then:
 
-1. Open <http://localhost:4321/admin/> in **Chrome or Edge**.
+1. Open <http://localhost:4321/admin/index.html> in **Chrome or Edge**.
+   (Note the `index.html` — the Astro dev server does not resolve directory
+   indexes for files in `public/`, so bare `/admin/` returns 404 in dev. On the
+   deployed site, and under `npm run preview`, plain `/admin/` works.)
 2. Click **"Work with Local Repository"**.
 3. In the folder picker, choose the **project root** (the folder containing
    `package.json`), and allow read/write access when the browser asks.
