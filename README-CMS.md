@@ -276,10 +276,11 @@ Read this before planning a rollout.
    as a `hidden` field so it survives. Every future field must be declared, even
    if it is not meant to be editable.
 
-5. **No side-by-side translation UI.** One file per locale (per the brief) means
-   English and Spanish are separate CMS entries. Sveltia's built-in i18n mode
-   would show locales side by side in one editor, but uses a different file
-   layout. Worth revisiting before extending to all 7 locales.
+5. **Adding the remaining locales.** `i18n.locales` currently lists `en` and
+   `es` only. Before adding pt, zh, it, fr and de, note that
+   `save_all_locales: true` means a save writes a file for every declared
+   locale — so declaring a locale before its content exists can create files
+   that fail the build-time schema. Add each locale alongside its content.
 
 6. **The FAQ section heading is not client-editable.** It lives in the content
    file (it has to, for translation) but is exposed as a `hidden` field, because

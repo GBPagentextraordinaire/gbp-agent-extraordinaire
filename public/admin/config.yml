@@ -1,23 +1,37 @@
 # Sveltia CMS configuration — UMC Innovation
 # ---------------------------------------------------------------------------
-# Scope of this prototype: the homepage hero and FAQ sections, English and
-# Spanish only. Nothing structural is editable — no section ordering, no layout,
-# navigation, colour or spacing controls, and no adding or deleting pages.
+# Uses Sveltia's native i18n: one CMS entry per page, with a locale switcher
+# inside the editor, rather than a separate entry per language. Because the
+# `file` path below contains {{locale}}, Sveltia treats this as the
+# `multiple_files` i18n structure and reads/writes one JSON file per locale.
+#
+# Nothing structural is editable: no section ordering, no layout, navigation,
+# colour or spacing controls, and no adding or deleting pages.
 # ---------------------------------------------------------------------------
 
 backend:
   name: github
   repo: BrightDigitalNZ/umcinnovation
   branch: main
-  # Commit messages written by the CMS, in NZ English.
   commit_messages:
     update: 'content: update {{collection}} “{{slug}}”'
     openAuthoring: 'content: update {{collection}} “{{slug}}” ({{author-login}})'
 
 # Lets the CMS run against the local filesystem with no GitHub authentication.
 # Sveltia uses the browser File System Access API, so no proxy server is needed.
-# See README-CMS.md for the exact commands.
 local_backend: true
+
+# ---------------------------------------------------------------------------
+# I18N
+# Add the remaining production locales (pt, zh, it, fr, de) to `locales` when
+# their content files exist. Read the note on save_all_locales in README-CMS.md
+# before doing so — declaring a locale with no content file has consequences.
+# ---------------------------------------------------------------------------
+i18n:
+  structure: multiple_files
+  locales: [en, es]
+  default_locale: en
+  save_all_locales: true
 
 # ---------------------------------------------------------------------------
 # MEDIA
@@ -41,148 +55,158 @@ media_libraries:
           quality: 85
           width: 2400 # Downscale anything wider; smaller images are left alone.
 
-# ---------------------------------------------------------------------------
-# SHARED FIELD DEFINITIONS
-# Anchored once and reused per locale. With 7 locales and 8 pages in production
-# this is what keeps the config maintainable — the alternative is 56 duplicated
-# field blocks that drift apart.
-# ---------------------------------------------------------------------------
-_field_definitions:
-  homepage_fields: &homepage_fields
-    - name: meta
-      label: 'Search engine listing'
-      widget: object
-      collapsed: false
-      fields:
-        - name: title
-          label: 'Meta title'
-          widget: string
-          required: true
-          pattern:
-            - '^.{1,60}$'
-            - 'Enter between 1 and 60 characters. Google truncates titles beyond roughly 60 characters, so anything longer is cut off mid-sentence in search results.'
-          hint: 'Shown as the clickable headline in Google results and on the browser tab. Keep it to 60 characters or fewer so it is not truncated.'
-        - name: description
-          label: 'Meta description'
-          widget: string
-          required: true
-          pattern:
-            - '^.{1,155}$'
-            - 'Enter between 1 and 155 characters. Google cuts descriptions off at around 155 characters, so anything longer is lost.'
-          hint: 'The grey summary text under the headline in Google results. It does not affect ranking, but it does affect whether people click. Keep it to 155 characters or fewer.'
-
-    - name: hero
-      label: 'Hero section'
-      widget: object
-      collapsed: false
-      fields:
-        - name: eyebrow
-          label: 'Eyebrow'
-          widget: string
-          required: false
-          pattern:
-            - '^.{0,40}$'
-            - 'Enter 40 characters or fewer.'
-          hint: 'The small line of text above the main heading. Keep it to 40 characters or fewer — it sits on one line and will wrap awkwardly if it is longer.'
-        - name: heading
-          label: 'Heading'
-          widget: string
-          required: true
-          pattern:
-            - '^.{1,90}$'
-            - 'Enter between 1 and 90 characters.'
-          hint: 'The main headline. Keep it to 90 characters or fewer so it stays within three lines on a mobile screen.'
-        - name: body
-          label: 'Body text'
-          widget: text
-          required: true
-          pattern:
-            - '^[\s\S]{1,300}$'
-            - 'Enter between 1 and 300 characters.'
-          hint: 'The paragraph under the heading. Keep it to 300 characters or fewer — longer copy pushes the buttons and statistics below the fold.'
-        - name: primaryCta
-          label: 'Primary button'
-          widget: object
-          collapsed: false
-          fields:
-            - { name: label, label: 'Button label', widget: string, required: true, hint: 'Keep it short — two or three words works best.' }
-            - { name: href, label: 'Button link', widget: string, required: true, hint: 'A path on this site, for example /contact or /es/contacto.' }
-        - name: secondaryCta
-          label: 'Secondary button'
-          widget: object
-          collapsed: false
-          fields:
-            - { name: label, label: 'Button label', widget: string, required: true, hint: 'Keep it short — two or three words works best.' }
-            - { name: href, label: 'Button link', widget: string, required: true, hint: 'A path on this site, for example /case-studies.' }
-        - name: background
-          label: 'Background image'
-          widget: image
-          required: true
-          choose_url: false
-          hint: 'Upload a wide (landscape) image. It is converted to WebP and resized to a maximum width of 2400 pixels automatically, then optimised again when the site is built.'
-        - name: backgroundAlt
-          label: 'Background image alt text'
-          widget: string
-          required: true
-          hint: 'Describes the image for screen readers and for anyone whose images fail to load. Say what is in the picture — do not write “image of”.'
-        - name: stats
-          label: 'Statistics'
-          widget: list
-          min: 4
-          max: 4
-          allow_add: false
-          collapsed: false
-          label_singular: 'Statistic'
-          hint: 'Exactly four statistics are shown, side by side. You can edit and reorder them, but not add or remove them — the layout depends on there being four.'
-          fields:
-            - { name: value, label: 'Figure', widget: string, required: true, hint: 'The number itself, for example 140+ or $2.4B.' }
-            - { name: label, label: 'Caption', widget: string, required: true, hint: 'What the figure refers to. Two or three words — longer captions will wrap.' }
-
-    - name: faq
-      label: 'Frequently asked questions'
-      widget: object
-      collapsed: false
-      fields:
-        # Not editable, but it must be declared. A file collection rewrites the
-        # whole file on save, so any key without a matching field is dropped.
-        - name: heading
-          label: 'Section heading'
-          widget: hidden
-        - name: items
-          label: 'Questions'
-          widget: list
-          min: 1
-          collapsed: false
-          label_singular: 'Question'
-          summary: '{{fields.question}}'
-          hint: 'Add, edit, reorder and remove questions freely. At least one question is required. There is no upper limit.'
-          fields:
-            - name: question
-              label: 'Question'
-              widget: string
-              required: true
-            - name: answer
-              label: 'Answer'
-              widget: markdown
-              required: true
-              # Deliberately restricted: no headings, images or embeds, which
-              # would break the FAQ layout. Text formatting and links only.
-              buttons: [bold, italic, link, bulleted-list, numbered-list]
-              editor_components: []
-              modes: [rich_text]
-              hint: 'You can use bold, italics, links and lists. Headings and images are intentionally unavailable here — they would break the layout of the answer.'
-
 collections:
-  - name: homepage
-    label: 'Homepage'
-    label_singular: 'Homepage'
-    description: 'The hero section and frequently asked questions on the homepage. Choose a language below.'
+  - name: pages
+    label: 'Pages'
+    description: 'Editable content, one entry per page. Switch language using the locale tabs inside each entry.'
+    i18n: true
     files:
-      - name: home_en
-        label: 'Homepage — English'
-        file: 'src/content/pages/home/en.json'
-        fields: *homepage_fields
-      - name: home_es
-        label: 'Homepage — Spanish'
-        file: 'src/content/pages/home/es.json'
-        fields: *homepage_fields
+      - name: home
+        label: 'Homepage'
+        # {{locale}} is what makes this a native-i18n entry. It resolves to
+        # src/content/pages/home/en.json, .../es.json, and so on.
+        file: 'src/content/pages/home/{{locale}}.json'
+        i18n: true
+        fields:
+          - name: meta
+            label: 'Search engine listing'
+            widget: object
+            collapsed: false
+            i18n: true
+            fields:
+              - name: title
+                label: 'Meta title'
+                widget: string
+                required: true
+                i18n: true
+                pattern:
+                  - '^.{1,60}$'
+                  - 'Enter between 1 and 60 characters. Google truncates titles beyond roughly 60 characters, so anything longer is cut off mid-sentence in search results.'
+                hint: 'Shown as the clickable headline in Google results and on the browser tab. Keep it to 60 characters or fewer so it is not truncated.'
+              - name: description
+                label: 'Meta description'
+                widget: string
+                required: true
+                i18n: true
+                pattern:
+                  - '^.{1,155}$'
+                  - 'Enter between 1 and 155 characters. Google cuts descriptions off at around 155 characters, so anything longer is lost.'
+                hint: 'The grey summary text under the headline in Google results. It does not affect ranking, but it does affect whether people click. Keep it to 155 characters or fewer.'
+
+          - name: hero
+            label: 'Hero section'
+            widget: object
+            collapsed: false
+            i18n: true
+            fields:
+              - name: eyebrow
+                label: 'Eyebrow'
+                widget: string
+                required: false
+                i18n: true
+                pattern:
+                  - '^.{0,40}$'
+                  - 'Enter 40 characters or fewer.'
+                hint: 'The small line of text above the main heading. Keep it to 40 characters or fewer — it sits on one line and will wrap awkwardly if it is longer.'
+              - name: heading
+                label: 'Heading'
+                widget: string
+                required: true
+                i18n: true
+                pattern:
+                  - '^.{1,90}$'
+                  - 'Enter between 1 and 90 characters.'
+                hint: 'The main headline. Keep it to 90 characters or fewer so it stays within three lines on a mobile screen.'
+              - name: body
+                label: 'Body text'
+                widget: text
+                required: true
+                i18n: true
+                pattern:
+                  - '^[\s\S]{1,300}$'
+                  - 'Enter between 1 and 300 characters.'
+                hint: 'The paragraph under the heading. Keep it to 300 characters or fewer — longer copy pushes the buttons and statistics below the fold.'
+              - name: primaryCta
+                label: 'Primary button'
+                widget: object
+                collapsed: false
+                i18n: true
+                fields:
+                  - { name: label, label: 'Button label', widget: string, required: true, i18n: true, hint: 'Keep it short — two or three words works best.' }
+                  - { name: href, label: 'Button link', widget: string, required: true, i18n: true, hint: 'A path on this site, for example /contact or /es/contacto.' }
+              - name: secondaryCta
+                label: 'Secondary button'
+                widget: object
+                collapsed: false
+                i18n: true
+                fields:
+                  - { name: label, label: 'Button label', widget: string, required: true, i18n: true, hint: 'Keep it short — two or three words works best.' }
+                  - { name: href, label: 'Button link', widget: string, required: true, i18n: true, hint: 'A path on this site, for example /case-studies.' }
+              - name: background
+                label: 'Background image'
+                widget: image
+                required: true
+                choose_url: false
+                # Set to `duplicate` instead if the same image should be shared
+                # across every locale and edited only once.
+                i18n: true
+                hint: 'Upload a wide (landscape) image. It is converted to WebP and resized to a maximum width of 2400 pixels automatically, then optimised again when the site is built.'
+              - name: backgroundAlt
+                label: 'Background image alt text'
+                widget: string
+                required: true
+                i18n: true
+                hint: 'Describes the image for screen readers and for anyone whose images fail to load. Say what is in the picture — do not write “image of”.'
+              - name: stats
+                label: 'Statistics'
+                widget: list
+                min: 4
+                max: 4
+                allow_add: false
+                collapsed: false
+                label_singular: 'Statistic'
+                i18n: true
+                hint: 'Exactly four statistics are shown, side by side. You can edit and reorder them, but not add or remove them — the layout depends on there being four.'
+                fields:
+                  - { name: value, label: 'Figure', widget: string, required: true, i18n: true, hint: 'The number itself, for example 140+ or $2.4B.' }
+                  - { name: label, label: 'Caption', widget: string, required: true, i18n: true, hint: 'What the figure refers to. Two or three words — longer captions will wrap.' }
+
+          - name: faq
+            label: 'Frequently asked questions'
+            widget: object
+            collapsed: false
+            i18n: true
+            fields:
+              # Not editable, but it must be declared. A file collection rewrites
+              # the whole file on save, so any key without a matching field is
+              # dropped.
+              - name: heading
+                label: 'Section heading'
+                widget: hidden
+                i18n: true
+              - name: items
+                label: 'Questions'
+                widget: list
+                min: 1
+                collapsed: false
+                label_singular: 'Question'
+                summary: '{{fields.question}}'
+                i18n: true
+                hint: 'Add, edit, reorder and remove questions freely. At least one question is required. There is no upper limit.'
+                fields:
+                  - name: question
+                    label: 'Question'
+                    widget: string
+                    required: true
+                    i18n: true
+                  - name: answer
+                    label: 'Answer'
+                    widget: markdown
+                    required: true
+                    i18n: true
+                    # Deliberately restricted: no headings, images or embeds,
+                    # which would break the FAQ layout.
+                    buttons: [bold, italic, link, bulleted-list, numbered-list]
+                    editor_components: []
+                    modes: [rich_text]
+                    hint: 'You can use bold, italics, links and lists. Headings and images are intentionally unavailable here — they would break the layout of the answer.'
